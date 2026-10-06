@@ -40,21 +40,15 @@ function Missions() {
     fetchProgress();
   }, []);
 
-  const isCompleted = (missionId) => {
-    const mission = missions.find((item) => {
+  const getMissionAttempts = (missionId) => {
+    return missions.filter((item) => {
       const id =
         item.mission?.id ??
         item.mission_id ??
         item.mission;
 
-      return Number(id) === Number(missionId);
-    });
-
-    return (
-      mission?.completed === true ||
-      mission?.completed === 1 ||
-      mission?.completed === "true"
-    );
+      return Number(id) === Number(missionId) && item.completed;
+    }).length;
   };
 
   const missionCardStyle = {
@@ -63,16 +57,6 @@ function Missions() {
     padding: "28px",
     borderRadius: "16px",
     transition: "0.3s",
-  };
-
-  const completedStyle = {
-    display: "inline-block",
-    marginTop: "10px",
-    padding: "8px 15px",
-    borderRadius: "20px",
-    background: "#123d2b",
-    color: "#4ade80",
-    fontWeight: "bold",
   };
 
   const buttonStyle = {
@@ -135,12 +119,7 @@ function Missions() {
 
             <h2>Phishing Detection</h2>
 
-            <p
-              style={{
-                color: "#8da8b9",
-                lineHeight: "1.6",
-              }}
-            >
+            <p style={{ color: "#8da8b9", lineHeight: "1.6" }}>
               Identify fake messages, suspicious links, and
               phishing attacks.
             </p>
@@ -148,17 +127,17 @@ function Missions() {
             <p>🎯 Difficulty: Beginner</p>
             <p>🏆 Reward: 10 Points</p>
 
-            {isCompleted(1) ? (
-              <div style={completedStyle}>
-                ✅ Mission Completed
-              </div>
-            ) : (
-              <Link to="/missions/phishing">
-                <button style={buttonStyle}>
-                  🚨 Start Mission
-                </button>
-              </Link>
+            {getMissionAttempts(1) > 0 && (
+              <p style={{ color: "#4ade80" }}>
+                ✅ Completed: {getMissionAttempts(1)} time(s)
+              </p>
             )}
+
+            <Link to="/missions/phishing">
+              <button style={buttonStyle}>
+                🚨 Start Mission
+              </button>
+            </Link>
           </div>
 
           {/* Password */}
@@ -167,12 +146,7 @@ function Missions() {
 
             <h2>Password Security</h2>
 
-            <p
-              style={{
-                color: "#8da8b9",
-                lineHeight: "1.6",
-              }}
-            >
+            <p style={{ color: "#8da8b9", lineHeight: "1.6" }}>
               Learn how to create strong passwords and protect
               your online accounts.
             </p>
@@ -180,17 +154,17 @@ function Missions() {
             <p>🎯 Difficulty: Beginner</p>
             <p>🏆 Reward: 10 Points</p>
 
-            {isCompleted(2) ? (
-              <div style={completedStyle}>
-                ✅ Mission Completed
-              </div>
-            ) : (
-              <Link to="/missions/password">
-                <button style={buttonStyle}>
-                  🔐 Start Mission
-                </button>
-              </Link>
+            {getMissionAttempts(2) > 0 && (
+              <p style={{ color: "#4ade80" }}>
+                ✅ Completed: {getMissionAttempts(2)} time(s)
+              </p>
             )}
+
+            <Link to="/missions/password">
+              <button style={buttonStyle}>
+                🔐 Start Mission
+              </button>
+            </Link>
           </div>
 
           {/* Malware */}
@@ -199,12 +173,7 @@ function Missions() {
 
             <h2>Malware Detection</h2>
 
-            <p
-              style={{
-                color: "#8da8b9",
-                lineHeight: "1.6",
-              }}
-            >
+            <p style={{ color: "#8da8b9", lineHeight: "1.6" }}>
               Identify suspicious computer behavior caused by
               malware.
             </p>
@@ -212,22 +181,22 @@ function Missions() {
             <p>🎯 Difficulty: Intermediate</p>
             <p>🏆 Reward: 10 Points</p>
 
-            {isCompleted(3) ? (
-              <div style={completedStyle}>
-                ✅ Mission Completed
-              </div>
-            ) : (
-              <Link to="/missions/malware">
-                <button style={buttonStyle}>
-                  🦠 Start Mission
-                </button>
-              </Link>
+            {getMissionAttempts(3) > 0 && (
+              <p style={{ color: "#4ade80" }}>
+                ✅ Completed: {getMissionAttempts(3)} time(s)
+              </p>
             )}
+
+            <Link to="/missions/malware">
+              <button style={buttonStyle}>
+                🦠 Start Mission
+              </button>
+            </Link>
           </div>
 
         </div>
 
-        {/* Total Score */}
+        {/* Score Information */}
         <div
           style={{
             marginTop: "45px",
@@ -240,20 +209,20 @@ function Missions() {
         >
           <div style={{ fontSize: "40px" }}>🏆</div>
 
-          <h2>Total Available Score</h2>
+          <h2>Mission Rewards</h2>
 
           <div
             style={{
-              fontSize: "38px",
+              fontSize: "30px",
               fontWeight: "bold",
               color: "#00f5ff",
             }}
           >
-            30 Points
+            +10 Points
           </div>
 
           <p style={{ color: "#8da8b9" }}>
-            Complete all 3 missions to achieve 30/30!
+            Complete a mission again to earn another 10 points!
           </p>
         </div>
 

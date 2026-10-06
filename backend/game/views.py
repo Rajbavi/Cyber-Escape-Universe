@@ -1,8 +1,6 @@
 from django.utils import timezone
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
-from rest_framework import status
 
 from .models import UserProgress
 from .serializers import UserProgressSerializer
@@ -20,5 +18,6 @@ class UserProgressView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(
             user=self.request.user,
-            completed_at=timezone.now()
+            completed_at=timezone.now(),
+            attempts=1
         )

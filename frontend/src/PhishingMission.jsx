@@ -12,8 +12,6 @@ function PhishingMission() {
       setScore(10);
       setCompleted(true);
 
-      localStorage.setItem("cyberScore", "10");
-
       try {
         const token = localStorage.getItem("access_token");
 
@@ -67,7 +65,6 @@ function PhishingMission() {
           margin: "0 auto",
         }}
       >
-        {/* Header */}
         <div style={{ textAlign: "center" }}>
           <h1 style={{ fontSize: "36px" }}>
             🎣 Phishing Detection
@@ -79,7 +76,6 @@ function PhishingMission() {
           </p>
         </div>
 
-        {/* Score */}
         <div
           style={{
             background: "#1e293b",
@@ -94,7 +90,6 @@ function PhishingMission() {
           </h2>
         </div>
 
-        {/* Scenario */}
         <div
           style={{
             background: "#1e293b",
@@ -139,7 +134,6 @@ function PhishingMission() {
             your answer.
           </p>
 
-          {/* Answer Buttons */}
           <div
             style={{
               display: "flex",
@@ -183,7 +177,6 @@ function PhishingMission() {
             </button>
           </div>
 
-          {/* Result */}
           {result && (
             <div
               style={{
@@ -206,7 +199,6 @@ function PhishingMission() {
           )}
         </div>
 
-        {/* Back */}
         <div
           style={{
             textAlign: "center",

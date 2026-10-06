@@ -37,9 +37,10 @@ function Dashboard() {
 
         setMissions(data);
 
+        // Add the score from every completed attempt
         const totalScore = data.reduce(
           (total, mission) =>
-            total + (mission.completed ? 10 : 0),
+            total + (mission.completed ? mission.score : 0),
           0
         );
 
@@ -52,6 +53,7 @@ function Dashboard() {
     fetchProgress();
   }, [navigate]);
 
+  // Count every completed attempt
   const completedMissions = missions.filter(
     (mission) => mission.completed
   ).length;
@@ -163,7 +165,7 @@ function Dashboard() {
                 color: "#00f5ff",
               }}
             >
-              {score}/30
+              {score}
             </div>
 
             <p style={{ color: "#8da8b9" }}>
@@ -191,7 +193,7 @@ function Dashboard() {
                 fontWeight: "bold",
               }}
             >
-              {completedMissions} / {totalMissions} Completed
+              {completedMissions} Attempts Completed
             </p>
 
             <div
@@ -206,7 +208,7 @@ function Dashboard() {
             >
               <div
                 style={{
-                  width: `${progressPercentage}%`,
+                  width: `${Math.min(progressPercentage, 100)}%`,
                   height: "100%",
                   background: "#00f5ff",
                   borderRadius: "10px",
@@ -221,44 +223,15 @@ function Dashboard() {
                 marginBottom: 0,
               }}
             >
-              {Math.round(progressPercentage)}% completed
+              {completedMissions} completed attempts
             </p>
           </div>
         </div>
 
-        {/* Completion Message */}
-        {completedMissions === totalMissions &&
-          totalMissions > 0 && (
-            <div
-              style={{
-                marginTop: "25px",
-                padding: "20px",
-                borderRadius: "12px",
-                background: "#091826",
-                border: "1px solid #1b5268",
-                textAlign: "center",
-              }}
-            >
-              <h2 style={{ margin: 0 }}>
-                🎉 All Missions Completed!
-              </h2>
-
-              <p
-                style={{
-                  color: "#8da8b9",
-                  marginBottom: 0,
-                }}
-              >
-                Excellent work! You completed your
-                cybersecurity training.
-              </p>
-            </div>
-          )}
-
         {/* Missions */}
         <div style={{ marginTop: "40px" }}>
           <h2 style={{ fontSize: "26px" }}>
-            🎯 Your Missions
+            🎯 Your Mission Attempts
           </h2>
 
           <div
@@ -294,7 +267,7 @@ function Dashboard() {
                       marginBottom: 0,
                     }}
                   >
-                    Cybersecurity Mission
+                    Score: {mission.score} points
                   </p>
                 </div>
 
